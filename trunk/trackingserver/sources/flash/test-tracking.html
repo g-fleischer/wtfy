@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>test flash</title>
+<script>
+WTFY = {
+get_tracking_id : function () {
+ return '1234.bacd';
+},
+};
+</script>
+</head>
+  <body onload="">
+    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+            id="Tracking.swf" width="500" height="375">
+      <param name="movie" value="Tracking.swf" />
+      <param name="quality" value="high" />
+      <param name="bgcolor" value="#869ca7" />
+      <param name="allowScriptAccess" value="sameDomain" />
+      <param name="FlashVars" value="host=192.168.147.1" />
+      <embed src="Tracking.swf" quality="high" bgcolor="#869ca7"
+             width="500" height="375" name="Tracking" align="middle"
+             play="true" loop="false" quality="high" allowScriptAccess="sameDomain"
+             type="application/x-shockwave-flash"
+	     FlashVars="host=192.168.147.1"
+	     >
+      </embed>
+    </object>
+  </body>
+</html>

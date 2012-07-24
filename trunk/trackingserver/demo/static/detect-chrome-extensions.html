@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>template</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+var current = -1;
+var tests = [
+'blpcfgokakmgnkcojhhkbfbldkacnbeo/128.png',
+'coobgpohoikkiipiblmjeljniedjpjpf/128.png',
+'ganlifbpkcplnldliibcbegplfmcfigp/d3.js',
+'gcbommkclmclpchllfjekcdonpmejbdp/icon128.png',
+'pjkljhegncpnkpknbcohdijeoejaedia/128.png',
+'blpcfgokakmgnkcojhhkbfbldkacnbeo/manifest.json',
+'coobgpohoikkiipiblmjeljniedjpjpf/manifest.json',
+'ganlifbpkcplnldliibcbegplfmcfigp/manifest.json',
+'gcbommkclmclpchllfjekcdonpmejbdp/manifest.json',
+'pjkljhegncpnkpknbcohdijeoejaedia/manifest.json',
+];
+
+window.onerror = function(e){log('got: ' + e + ', ['+tests[current]+']')};
+
+function go() {
+  var target = 'chrome-extension://'+tests[current];
+  log('trying: ' + target);
+  var scr = document.createElement('script');
+  scr.type = 'application/javascript';
+  scr.src = target;
+  scr.onload = scr.onerror = function() {go_next();}
+  document.head.appendChild(scr);
+}
+function go_next() {
+// log('go_next()')
+ current += 1;
+ if (current < tests.length) {
+  go();
+ }
+}
+</script>
+</head>
+<body onload="init();go_next()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>
+
+

@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>test flash shared object</title>
+<script>
+function get_cookie() {
+ var cookies = document.cookie.split(";");
+ for (var i = 0; i < cookies.length; ++i) {
+  var items = cookies[i].split("=");
+  if (items.length > 1) {
+   if (items[0].indexOf("trackid")>=0) {
+    return items[1];
+    }
+  }
+ }
+ return "";
+}
+</script>
+<script type="text/javascript" src="/ids.js"></script>
+</head>
+<body>
+
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="900" height="700" id="movie_name" align="middle">
+    <param name="movie" value="RemoteTracking.swf"/>
+    <param name="FlashVars" value="targetdomain=${domain}">
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="RemoteTracking.swf" width="900" height="700">
+        <param name="movie" value="RemoteTracking.swf"/>
+	<param name="FlashVars" value="targetdomain=${domain}">
+    <!--<![endif]-->
+        <a href="http://www.adobe.com/go/getflash">
+            <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/>
+        </a>
+    <!--[if !IE]>-->
+    </object>
+    <!--<![endif]-->
+</object>
+
+</body>
+</html>

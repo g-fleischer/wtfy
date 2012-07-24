@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>Enumerate Browser</title>
+<script>
+var __display;
+var __eol = "\n";
+if (navigator.userAgent.indexOf("MSIE") >= 0)
+ __eol = "\n" + "<br>";
+
+function __log(message) {
+ __display.innerHTML += (new Date()) + ": " + message + __eol;
+}
+function __init() {
+ __display = document.getElementById("__display");
+ __log("starting");
+ __log("userAgent reported as: " + navigator.userAgent);
+ window.onerror = function(e) {log("ignoring error: " + e)};
+// walk('navigator', navigator, 0); 
+__enumerate();
+}
+</script>
+<script type="text/javascript" src="enumerate-browser.js"></script>
+</head>
+<body onload="__init()">
+<div id="__display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>
+

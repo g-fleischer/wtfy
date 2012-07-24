@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>Enumerate Browser</title>
+<script>
+var display;
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + "\n" + "<br>";
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+// walk('navigator', navigator, 0); 
+enumerate();
+}
+</script>
+</head>
+<body onload="init()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>
+
+<script>
+var all_objects = {};
+var max_depth = 2;
+
+function enumerate() {
+    walk('window', window, 0);
+}
+function report(msg) {
+    // # TODO:
+}
+
+function walk(name, obj, depth) {
+    log(name);
+    var props = [];
+    try {
+	for (var prop in obj) {
+	    props.push(prop);
+	}
+    } catch(e) {}
+	
+    for (var i = 0; i < props.length; ++i) {
+	var prop = props[i];
+	var v = null;
+	try {
+	    v = obj[prop];
+	} catch(e) {}
+	if (v != null) {
+	    var pname = name + '[\"' + prop + '\"]';
+	    var t = typeof(v);
+	    if ('function' == t) {
+		report('function', pname);
+	    } else if ('object' == t) {
+		if (v != self && v != document) {
+		    var exclude = true;
+		    try {
+			all_objects[obj] = true;
+			exclude = (depth > max_depth) || ('length' in v) || (v == window["display"]);
+		    } catch (e) {
+			log("bad obj: " + pname);
+		    }
+		    if (!exclude) {
+			report('object', pname);
+			walk(pname, v, depth + 1);
+		    }
+		}
+	    } else {
+		log(pname);
+		//		log(name + '.' + prop + ': ' + v);
+	    }
+	}
+    }
+}
+</script>

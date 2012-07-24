@@ -1,0 +1,18 @@
+<html>
+<body onload="doit()">
+<script>
+function doit() {
+ var ary = ['noscript', 'ghostery', 'webdeveloper'];
+ var msg = '';
+ var xhr = new XMLHttpRequest();
+ for (var i = 0; i < ary.length; ++i) {
+  try {
+   xhr.open('GET', 'chrome://' + ary[i] + '/content/', false);
+   msg += ary[i] + '\n';
+  } catch (e) {}
+ }
+ alert(msg);
+}
+</script>
+</body>
+</html>

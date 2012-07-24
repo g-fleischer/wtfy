@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>test css</title>
+<link type="text/css" rel="stylesheet" href="//${domain}/id.css" />
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date().toGMTString()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting from: " + document.location);
+}
+
+function getStyle(elem, css, pseudo){
+ if (window.getComputedStyle) {
+  return window.getComputedStyle(elem, pseudo).getPropertyValue(css);
+ } else if (elem.currentStyle) {
+  return elem.currentStyle[css];
+ } else {
+  return elem.style[css];
+ }
+}
+
+function go() {
+ var tid_div = document.getElementById("tracking_id");
+ log('background-image: ' + getStyle(tid_div, "background-image", null));
+ log('content: ' + getStyle(tid_div, "content", ":after"));
+ log('font-family: ' + getStyle(tid_div, "font-family", null));
+}
+</script>
+</head>
+<body onload="init(); go()">
+<div id="tracking_id" style="position:absolute;left:-1234px;top:-1234px"></div>
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>dnt XMLHttpRequest test</title>
+<script>
+var request = "/dump-request";
+var display;
+function log(message) {
+ display.innerHTML = (new Date()) + ": " + message;
+}
+function init() {
+ display = document.getElementById("display");
+ log("loaded");
+}
+function original() { 
+ var xhr = new XMLHttpRequest();
+ xhr.open("GET", request, false);
+ xhr.send()
+ log("Response:\n" + xhr.responseText);
+}
+function modified() { 
+ var xhr = new XMLHttpRequest();
+ xhr.open("GET", request, false);
+ if (navigator.doNotTrack) {
+   xhr.setRequestHeader("DNT", null);
+ }
+ xhr.send()
+ log("Response:\n" + xhr.responseText);
+}
+</script>
+</head>
+<body onload="init()">
+<input type="button" value="original" onclick="original()">
+<input type="button" value="modified" onclick="modified()">
+<br>
+<div id="display" style="white-space: pre; font-family: courier new"></div>
+</body>
+</html>

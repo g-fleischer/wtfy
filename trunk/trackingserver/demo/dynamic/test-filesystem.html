@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>test file write</title>
+<script>
+var display;
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + "\n";
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+ window.onerror = function(e) {log('unhandled error: ' + e);}
+
+}
+
+function go() {
+ test_temporary();
+ test_persistent_negative();
+}
+</script>
+<script src="test-filesystem.js"></script>
+<script src="//${domain}/ids.js"></script>
+</head>
+<body onload="init(); go();">
+<input type="button" onclick="do_read(false)" value="read">
+<input type="button" onclick="do_write(false, get_tracking_id())" value="write">
+<input type="button" onclick="do_read(true)" value="read persistent">
+<input type="button" onclick="do_write(true, get_tracking_id())" value="write persistent">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+
+</body>
+</html>

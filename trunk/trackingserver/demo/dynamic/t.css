@@ -1,0 +1,10 @@
+#t_iframe:after {
+ content: "asdf";
+}
+#t_iframe {
+background-image: url('data:image/gif;trackid=${trackid};base64,R0lGODlhAQABALMAAAAAAIAAAACAAICAAAAAgIAAgACAgMDAwICAgP8AAAD/AP//AAAA//8A/wD//wBiZCH5BAEAAA8ALAAAAAABAAEAAAQC8EUAOw==');
+overflow: hidden;
+height: 100px;
+width: 100px;
+border: 10px solid red;
+}

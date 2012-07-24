@@ -1,0 +1,32 @@
+<html>
+<body>
+<script type="text/javascript">
+(function(){
+ if (!parent || !parent.postMessage) { return ; }
+ var w = window;
+ var tid = "${trackid}";
+ var utid = tid, ltid = null;
+ try {
+   ltid = localStorage["tid"];
+   if (!ltid || ltid == "null" || ltid == "undefined") {
+    localStorage["tid"] = tid;
+    ltid = null;
+   }
+ } catch(e) {}
+ if (ltid) {
+  utid = ltid;
+ }
+ var cb = function(event) {
+  var rtid = (event.data || "").toString();
+  alert('rtid=' + rtid + '\nutid=' + utid + '\ntid=' +tid + '\nltid='+ ltid);
+ };
+ if (w.addEventListener) {
+  w.addEventListener("message", cb, false);
+ } else {
+  w.attachEvent("onmessage", cb);
+ }
+ parent.postMessage(utid, "*");
+})();
+</script>
+</body>
+</html>

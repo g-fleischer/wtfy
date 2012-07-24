@@ -1,0 +1,101 @@
+<html>
+<title>chrome chrome</title>
+<script>
+var log0;
+var links = [
+'chrome://appcache-internals',
+'chrome://blob-internals',
+'chrome://bookmarks',
+'chrome://cache',
+'chrome://chrome-urls',
+'chrome://crashes',
+'chrome://credits',
+'chrome://dns',
+'chrome://downloads',
+'chrome://extensions',
+'chrome://flags',
+'chrome://flash',
+'chrome://gpu-internals',
+'chrome://histograms',
+'chrome://history',
+'chrome://ipc',
+'chrome://media-internals',
+'chrome://memory',
+'chrome://net-internals',
+'chrome://network-action-predictor',
+'chrome://view-http-cache',
+'chrome://newtab',
+'chrome://omnibox',
+'chrome://plugins',
+'chrome://print',
+'chrome://profiler',
+'chrome://quota-internals',
+'chrome://sessions',
+'chrome://settings',
+'chrome://stats',
+'chrome://sync-internals',
+'chrome://tasks',
+'chrome://tcmalloc',
+'chrome://terms',
+'chrome://tracing',
+'chrome://version',
+'chrome://workers',
+];
+function log(msg) {
+ log0.innerHTML += msg + '\n';
+}
+function report_error(e, v, l) {
+ log('error: ' + e + ', ' + v + ', ' + l);
+}
+function doit(){
+ window.onerror = report_error;
+ log0 = document.getElementById("log0");
+ log('started');
+ for(var i = 0; i < links.length; ++i) {
+//  jsload(links[i]);
+//  iframeload(links[i]);
+  cssload(links[i]);
+ } 
+}
+function jsload(target) {
+ var script0 = document.createElement('script');
+ script0.type = 'text/javascript';
+ script0.async = true;
+ script0.onload = function(){log('loaded js: ' + target)};
+ script0.onerror = function(){log('failed js: ' + target)};
+ script0.src = target;
+ var node = document.getElementsByTagName('script')[0];
+ node.parentNode.insertBefore(script0, node);
+}
+function iframeload(target) {
+ var iframe0 = document.createElement('iframe');
+ iframe0.type = 'text/html';
+ iframe0.onload = function(){log('loaded iframe: ' + target)};
+ iframe0.onerror = function(){log('failed iframe: ' + target)};
+ iframe0.src = target;
+ document.body.appendChild(iframe0);
+}
+function imgload(target) {
+ var img0 = new Image();
+ img0.onload = function(){log('loaded img: ' + target)};
+ img0.onerror = function(){log('failed img: ' + target)};
+ img0.src = target;
+ document.body.appendChild(img0);
+}
+function cssload(target) {
+ var css0 = document.createElement("link");
+ css0.rel = 'stylesheet';
+ css0.type = 'text/css';
+ css0.onload = function(){log('loaded css: ' + target)};
+ css0.onerror = function(){log('failed css: ' + target)};
+ css0.href = target;
+ document.body.appendChild(css0);
+// var node = document.getElementsByTagName('script')[0];
+// node.parentNode.insertBefore(script0, node);
+}
+</script>
+<body onload="doit()">
+<input type="button" onclick="doit()" value="doit">
+<div id="log0" style="white-space: pre; font-family: Courier New"></div>
+</body>
+</html>

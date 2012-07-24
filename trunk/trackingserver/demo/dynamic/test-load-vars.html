@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>test load vars</title>
+</head>
+<body>
+<!--[if IE]>
+<script type="text/javascript" src="http://${domain}/id.js"></script>
+<link rel="stylesheet" type="text/css" href="http://${domain}/id.css">
+<![endif]-->
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="900" height="700" id="movie_name" align="middle">
+    <param name="movie" value="TestLoadVars.swf"/>
+    <param name="flashvars" value="loadtarget=http://${domain}/id.js">
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="TestLoadVars.swf" width="900" height="700">
+        <param name="movie" value="TestLoadVars.swf"/>
+	<param name="flashvars" value="loadtarget=http://${domain}/id.js">
+    </object>
+    <!--<![endif]-->
+</object>
+</body>
+</html>

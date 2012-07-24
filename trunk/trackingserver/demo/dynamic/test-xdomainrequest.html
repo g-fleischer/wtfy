@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>test XDomainRequest</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function go() {
+ try {
+  var xhr = new XDomainRequest();
+  xhr.open("GET", "http://${domain}/id.html", false);
+  xhr.send();
+  alert(xhr.responseText);
+ } catch (e) { log('error: ' + e.message); }
+}
+</script>
+</head>
+<body onload="init();go()">
+<iframe src="http://featurability.com/id.html"></iframe>
+<hr>
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

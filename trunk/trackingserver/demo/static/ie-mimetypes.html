@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>ie installed versions</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function check() {
+
+var components = [
+['Acrobat Portable Document Format','application/pdf'],
+['Adobe PDF in XML Format','application/vnd.adobe.pdfxml'],
+['Adobe PDF in XML Format','application/vnd.adobe.x-mars'],
+['Acrobat Forms Data Format','application/vnd.fdf'],
+['XML Version of Acrobat Forms Data Format','application/vnd.adobe.xfdf'],
+['Acrobat XML Data Package','application/vnd.adobe.xdp+xml'],
+['Adobe FormFlow99 Data File','application/vnd.adobe.xfd+xml'],
+['Silverlight', 'application/x-silverlight'],
+['Silverlight2', 'application/x-silverlight-2'],
+['.gif', 'image/gif'],
+];
+
+var already_checked = {};
+
+document.body.addBehavior("#default#clientCaps");
+
+for (var i = 0; i < components.length; ++i) {
+try {
+ var name = components[i][0];
+ var dbid = components[i][1];
+ var checked = already_checked[dbid];
+ if (!checked) {
+ already_checked[dbid] = true;
+ var is_installed = document.body.isComponentInstalled(dbid, "mimetype");
+ log(name + " is installed: " + is_installed);
+  if (is_installed) {
+   log(name + " version: " + document.body.getComponentVersion(dbid, "mimetype"));
+  }
+ }
+} catch(e) {
+ log("error: " + e.message);
+}
+}
+
+}
+</script>
+</head>
+<body onload="init();check()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

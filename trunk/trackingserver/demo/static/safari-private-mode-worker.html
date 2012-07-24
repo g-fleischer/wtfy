@@ -1,0 +1,50 @@
+<html>
+<head>
+<title>Safari Private Mode - Worker</title>
+<script>
+var interval;
+var display;
+var original;
+var guard = (99999999999999999999 * Math.random()).toString();
+
+function log(message) {
+ display.innerHTML = (new Date()) + ": " + message;
+}
+
+function monitor() {
+ if (document.cookie.indexOf(guard) < 0) {
+  var cookies = original.split(';');
+  for (var i = 0; i < cookies.length; ++i) {
+     document.cookie = cookies[i];
+  }
+  log("reset cookies: " + document.cookie);
+  document.cookie = "__guard=" + guard;
+ }
+}
+
+function init() {
+ display = document.getElementById("display");
+ worker = Worker("safari-private-mode-worker.js");
+ worker.postMessage()
+}
+
+function start() {
+ original = document.cookie || "";
+ log("original cookies: " + original);
+ document.cookie = "__guard=" + guard;
+ interval = setInterval(monitor, 25);
+}
+function stop() {
+ clearInterval(interval);
+ log("stopped");
+}
+</script>
+</head>
+<body onload="init();start()">
+<div id="display" style="white-space: pre; font-family: courier new"></div>
+<br>
+<input type="button" value="stop" onclick="stop()">
+<input type="button" value="start" onclick="start()">
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+<html>
+<head>
+  <link type="text/css" rel="stylesheet" href="javascript:var s='';var ci=Components.interfaces;for(var p in ci){s += ci[p]+'|';};'.foo {background-color: red; font-family:&quot;'+escape(s)+'&quot;};'">
+<script>
+function doit() {
+ var d = document.getElementById("foo");
+ var style = window.getComputedStyle(d, null);
+ document.write(unescape(style.getPropertyCSSValue("font-family").cssText).replace(/\|/g, "<br>"));
+}
+</script>
+</head>
+<body onload="doit()">
+0
+<div id="foo" class="foo">
+bar
+</div>
+1
+</body>
+</html>

@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>dump props</title>
+</head>
+<body>
+<script>
+(function () {
+var s = "";
+for (var p in window) {
+ try {
+  var obj = window[p];
+  if (obj == self || document === obj || "prototype" == p) {
+   continue;
+  }
+  var t = typeof(obj);
+  if ("object" == t) {
+   s += "O|"+p + "\n";
+   for (var p2 in obj) {
+    try {
+     var o2 = obj[p2];
+     if (o2 == self || document === obj || 'prototype' == p2) {
+      continue;
+     }  
+     var t2 = typeof(o2);
+     if ("object" == t2) {
+      s += "O|"+p+"['"+p2+"']\n";
+     } else if ("function" == t2) {
+      s += "F|"+p+"['"+p2+"']\n";
+     }
+    } catch(e){}
+   }
+  } else if ("function" == t) {
+   s += "F|"+p + "\n";
+  }
+ } catch(e) {alert(p+"\n"+e)}
+}
+document.write("<pre>" + s + "</pre>");
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<style>  
+ h3:after {  
+   content: ' rocks!';  
+ }  
+ a:after {  
+   content: attr(href);  
+ }  
+</style>  
+  
+<h3>generated content</h3>   
+<a href="http://www.google.com/"></a>
+  
+<script>  
+ console = alert;
+  var h3       = document.querySelector('h3');
+      cssvalue = getComputedStyle(h3, '::after').getPropertyCSSValue('content');
+      result   = cssvalue && cssvalue.cssText;  
+  
+  console('the generated content is: ', result); // returns ' rocks!'  
+
+  var a       = document.querySelector('a'),   
+      cssvalue = getComputedStyle(a, ':after').getPropertyCSSValue('content'),  
+      result   = cssvalue && cssvalue.cssText;  
+  
+  console.log('the generated content is: ', result); // returns ' rocks!'  
+</script> 

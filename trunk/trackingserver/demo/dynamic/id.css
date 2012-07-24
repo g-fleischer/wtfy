@@ -1,0 +1,9 @@
+#tracking_id { 
+   font-family: "${trackid}" !important;
+   background-image: url('data:image/gif;tid=${trackid};base64,R0lGODlhAQABALMAAAAAAIAAAACAAICAAAAAgIAAgACAgMDAwICAgP8AAAD/AP//AAAA//8A/wD//wBiZCH5BAEAAA8ALAAAAAABAAEAAAQC8EUAOw==');
+}
+
+#tracking_id:after { 
+   content: "${trackid}";
+}
+

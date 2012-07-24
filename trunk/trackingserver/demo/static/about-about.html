@@ -1,0 +1,91 @@
+<html>
+<title>about about</title>
+<script>
+var log0;
+var links = [
+    'about:',
+    'about:about',
+    'about:addons',
+    'about:buildconfig',
+    'about:cache',
+    'about:config',
+    'about:crashes',
+    'about:credits',
+    'about:home',
+    'about:license',
+    'about:logo',
+    'about:memory',
+    'about:mozilla',
+    'about:permissions',
+    'about:plugins',
+    'about:privatebrowsing',
+    'about:rights',
+    'about:robots',
+    'about:sessionrestore',
+    'about:support',
+    'about:sync-log',
+    'about:sync-progress',
+    'about:sync-tabs'
+];
+function log(msg) {
+ log0.innerHTML += msg + '\n';
+}
+function report_error(e, v, l) {
+ log('error: ' + e + ', ' + v + ', ' + l);
+}
+function doit(){
+ window.onerror = report_error;
+ log0 = document.getElementById("log0");
+ log('started');
+ for(var i = 0; i < links.length; ++i) {
+  iframeload(links[i]);
+  imgload(links[i]);
+  cssload(links[i]);
+  jsload(links[i]);
+ } 
+}
+function jsload(target) {
+ var script0 = document.createElement('script');
+ script0.type = 'text/javascript';
+ script0.async = true;
+ script0.onload = function(){log('loaded js: ' + mklink(target))};
+ script0.onerror = function(){log('failed js: ' + mklink(target))};
+ script0.src = target;
+ var node = document.getElementsByTagName('script')[0];
+ node.parentNode.insertBefore(script0, node);
+}
+function iframeload(target) {
+ var iframe0 = document.createElement('iframe');
+ iframe0.type = 'text/html';
+ iframe0.onload = function(){log('loaded iframe: ' + mklink(target))};
+ iframe0.onerror = function(){log('failed iframe: ' + mklink(target))};
+ iframe0.src = target;
+ document.body.appendChild(iframe0);
+}
+function imgload(target) {
+ var img0 = new Image();
+ img0.onload = function(){log('loaded img: ' + mklink(target))};
+ img0.onerror = function(){log('failed img: ' + mklink(target))};
+ img0.src = target;
+ document.body.appendChild(img0);
+}
+function cssload(target) {
+ var css0 = document.createElement("link");
+ css0.rel = 'stylesheet';
+ css0.type = 'text/css';
+ css0.onload = function(){log('loaded css: ' + mklink(target))};
+ css0.onerror = function(){log('failed css: ' + mklink(target))};
+ css0.href = target;
+ document.body.appendChild(css0);
+// var node = document.getElementsByTagName('script')[0];
+// node.parentNode.insertBefore(script0, node);
+}
+function mklink(l) {
+ return 'l+' <a style="color: blue;" href="'+l+'" title="'+l+'">'+l+'</a>';
+}
+</script>
+<body onload="doit()">
+<input type="button" onclick="doit()" value="doit">
+<div id="log0" style="white-space: pre; font-family: Courier New"></div>
+</body>
+</html>

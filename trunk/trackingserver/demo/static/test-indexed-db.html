@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>test indexed db</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function dump_request(request) {
+/*
+ request.onerror = function(event) {log('error: ' + dump_request(request))}
+ request.onsuccess = function(event) {log('success: ' + dump_request(request))}
+ request.onblocked = function(event) {log('blocked: ' + dump_request(request))}
+ request.onupgradeneeded = function(event) {log('blocked: ' + dump_request(request))}
+*/
+//return request.errorCode + ',' + request.readyState + '/';
+ if (request.DONE == request.readyState) {
+  return (request.readyState + '/' + request.target + ',' + request.errorCode);
+ } else {
+  return (request.readyState + '/' + request.target);
+ }
+}
+
+window.onerror = function(e){log('unhandled: ' + e)}
+
+function go() {
+
+ if ('webkitIndexedDB' in window) {
+    window.IndexedDB = window.webkitIndexedDB;
+ } else if ('mozIndexedDB' in window) { 
+    window.IndexedDB = window.mozIndexedDB;
+ }
+
+ var request = IndexedDB.open('test')
+ request.onerror = function(event) {log('error: ' + dump_request(request))}
+ request.onsuccess = function(event) {log('success: ' + dump_request(request))}
+ request.onblocked = function(event) {log('blocked: ' + dump_request(request))}
+ request.onupgradeneeded = function(event) {log('blocked: ' + dump_request(request))}
+
+}
+function handle(request) {
+dump_request(request);
+}
+function go2() {
+ var request = mozIndexedDB.deleteDatabase('\x00')
+ dump_request(request);
+ var ifr = document.createElement("iframe");
+ ifr.src="data:text/html,<scr"+"ipt>top.r=mozIndexedDB.open('test',3)</scr"+"ipt>";
+// ifr.onload=function(){ifr.onload=null;ifr.src='about:neterror';handle(top.r)};
+ document.body.appendChild(ifr);
+ setTimeout(function(){ifr.onload=null;ifr.src='about:about';handle(top.r)}, 100);
+}
+</script>
+</head>
+<body onload="init();go()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

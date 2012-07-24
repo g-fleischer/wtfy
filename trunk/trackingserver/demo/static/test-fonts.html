@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>test fonts</title>
+<style type="text/css">
+.test {
+ font-family: serif;
+ font-size: 20em;
+ overflow: hidden;
+ height: 1000px;
+ width: 1000px;
+}
+#font1 { 
+ font-family: inherit;
+}
+#font0 {
+ font-size: inherit !important;
+ font-family: sans-serif !important;
+}
+span {
+ background-color: red;
+}
+</style>
+<script>
+var display;
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + "\n";
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+var styles = [ "font-family", "font", "font-weight", "font-size", "font-variant"];
+var stylesx = [ "border-top-width", "border-bottom-width",  "border-right-width",  
+"border-left-width", "height", "margin-top", 
+"margin-right", "margin-left", "margin-bottom", "width", "border-top-left-radius", "border-top-right-radius", "border-bottom-right-radius",
+"border-bottom-left-radius" , "padding-top", "padding-right", "padding-bottom", "padding-left", "background-color", "border-top-color", "border-bottom-color", 
+"border-right-color", "border-left-color", "color","border-top-style",  
+"border-bottom-style",  "border-right-style","border-left-style", 
+  "font-family", "font-size", "font-style", "font-variant", 
+"font-weight"];
+function report(target) {
+ var obj = document.getElementById(target);
+ var style = document.defaultView.getComputedStyle(obj, null);
+ for (var i = 0; i < styles.length; ++i) {
+  var s = styles[i];
+  log(target + ": " + s + "=" + style.getPropertyValue(s));
+ }
+}
+function go() {
+ report("foo");
+ report("bar");
+}
+var fonts = ["Bogus", "Arial", "Times", "Times New Roman", "Comic Sans MS"];
+function detect() {
+
+}
+function test() {
+ for (var i = 0; i < fonts.length; ++i) {
+  var f = fonts[i];
+  if (detect(f)) {
+   log("detected font: " + f);
+  }
+ }
+}
+</script>
+</head>
+<body onload="init();go()">
+<input type="button" onclick="go()" value="go">
+<hr>
+<div class="test">
+<span id="font0">m</span><span id="font1">m</span><span id="font2">m</span>
+</div>
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>test tracking protection list</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<script>
+var trackid = window.name;
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+
+function doit() {
+ try {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://${domain}/id.js", false);
+  xhr.setRequestHeader("X-TrackID", trackid);
+  xhr.send();
+  window.name = trackid = xhr.getResponseHeader('Etag').replace(/\"/g, '');//"
+  alert(xhr.responseText + '\n\n' + trackid);
+ } catch (e) {
+  log("XMLHttpRequest() - got error: " + e.message);
+ }
+ try {
+  var xhr = new XDomainRequest();
+  xhr.open("GET", "http://${domain}/id.js", false);
+//  xhr.setRequestHeader("X-TrackID", trackid);
+  xhr.send();
+  window.name = trackid = xhr.getResponseHeader('Etag').replace(/\"/g, '')//"
+  alert(xhr.responseText + '\n\n' + trackid);
+ } catch (e) {
+  log("XDomainRequest() - got error: " + e.message);
+ }
+}
+</script>
+</head>
+<body onload="init(); doit();">
+<!--[if IE]>
+<script type="text/javascript" src="http://${domain}/id.js"></script>
+<link rel="stylesheet" type="text/css" href="http://${domain}/id.css">
+<![endif]-->
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

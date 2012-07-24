@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>dump mime-types</title>
+</head>
+<body>
+<script>
+(function () {
+ var s = "";
+ var mt = navigator.mimeTypes,
+     l = mt.length;
+ s += "mimetypes length: " + l + "\n";
+ for(var i = 0; i < l; ++i) {
+   var m = mt[i];
+   s += m.type + ", " + m.description + "\n";
+ }
+ var mt = navigator.plugins,
+     l = mt.length;
+ s += "plugins length: " + l + "\n";
+ for(var i = 0; i < l; ++i) {
+   var m = mt[i];
+   s += m.name + ", " + m.filename + "," + m.version + "," + m.description + "\n";
+ }
+ document.write("<pre>" + s + "</pre>");
+})();
+</script>
+</body>
+</html>

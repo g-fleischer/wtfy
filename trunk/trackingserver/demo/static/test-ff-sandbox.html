@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>test ff sandbox</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function doit() {
+ var ifr = document.createElement("iframe");
+ document.body.appendChild(ifr);
+ var win = ifr.contentDocument.defaultView;
+ ifr.src = "about:neterror";
+ ifr.height=200;
+ ifr.width="80%";
+ setTimeout(function(){
+ win.location = "javascript:s='';try{s+=(new this.Date()).toString();obj=Components.interfaces;s+=obj.toString()+'<br>';for(p in obj){s+=p;try{v=obj[p];s+='<br>...'+v;}catch(e){};s+='<br>';}}catch(x){s+='<br>ERROR:'+x.message;};s.toString()";
+ }, 2000);
+}
+</script>
+</head>
+<body onload="init();doit()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

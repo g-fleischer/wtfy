@@ -1,0 +1,7 @@
+recursive-include DNS *.py
+recursive-include tools *.py
+recursive-include tests *.py
+include *.txt
+include LICENSE
+include setup.*
+include *.spec

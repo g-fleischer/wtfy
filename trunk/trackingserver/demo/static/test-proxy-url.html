@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>test proxy url</title>
+<script>
+var display;
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + "\n";
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function go() {
+  var ifr = document.createElement("iframe");
+  ifr.id = "iframe-burp";
+  ifr.onload = check;
+  document.body.appendChild(ifr);
+  ifr.src = "";
+  ifr.contentWindow.location = "http://burp/show/";
+  var script0 = document.createElement("script");
+  script0.type = "text/javascript";
+  script0.onload = function (event){log("loaded" + event);}
+  script0.onerror  = function (event){log("error: " + event);}
+  window.onerror = function(event ){log("window error: " + event);}
+  script0.src = "http://burp/show/";
+  document.body.appendChild(script0);
+
+  var img = new Image();
+  img.onload = function (){log("loaded");}
+  img.onerror = function (){log("failed");}
+  img.src = "http://burp/show";
+}
+function check() {
+  var ifr = document.getElementById("iframe-burp");
+  try {
+   var loc = ifr.contentWindow.location;
+  } catch (e) {
+   log(e);
+  }
+}
+</script>
+</head>
+<body onload="init();go();">
+<input type="button" onclick="go()" value="go">
+<input type="button" onclick="check()" value="check">
+<hr>
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

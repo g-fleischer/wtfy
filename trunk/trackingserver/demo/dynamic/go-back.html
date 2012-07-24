@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function go() {
+ if (document.referrer) {
+  window.location = document.referrer;
+ } else {
+  history.go(-1);
+ }
+}
+</script>
+</head>
+<body onload="go()">
+<iframe src="//${domain}/id.html"></iframe>
+</body>
+</html>
