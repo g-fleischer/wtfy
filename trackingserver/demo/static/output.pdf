@@ -1,0 +1,66 @@
+%PDF-1.3
+1 0 obj
+<<
+/Kids [ 3 0 R ]
+/Type /Pages
+/Count 1
+>>
+endobj
+2 0 obj
+<<
+/Producer (Python PDF Library \055 http\072\057\057pybrary\056net\057pyPdf\057)
+>>
+endobj
+3 0 obj
+<<
+/Parent 1 0 R
+/Type /Page
+/Resources <<
+>>
+/MediaBox [ 0 0 100 100 ]
+>>
+endobj
+4 0 obj
+<<
+/Type /Action
+/S /JavaScript
+/JS (
+var foo = 'Hello from PDF JavaScript';
+//app.alert({cMsg: foo, cTitle: 'Testing PDF JavaScript', nIcon: 3});
+app.alert(foo);
+
+if ('undefined' == typeof(global._id_tracker)) {
+global._id_tracker = '1234abcd-958123-1234';
+global.setPersistent('_id_tracker', true);
+} else {
+app.alert(global._id_tracker);
+}
+
+
+)
+>>
+endobj
+5 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction 4 0 R
+>>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000068 00000 n 
+0000000169 00000 n 
+0000000259 00000 n 
+0000000624 00000 n 
+trailer
+<<
+/Size 6
+/Root 5 0 R
+/Info 2 0 R
+>>
+startxref
+691
+%%EOF

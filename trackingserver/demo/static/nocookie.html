@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>no cookie</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function go() {
+ var cookies = document.cookie.split(';');
+ for (var i = 0; i < cookies.length; ++i) {
+  var pair = cookies[i].split('=');
+  if (pair.length != 2) {
+   log('wtf: ' + cookies[i]);
+  } else {
+   log('cookie: ' + pair[0] + '=' + pair[1]);
+  }
+ }
+}
+</script>
+</head>
+<body onload="init();go();">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+  <script>
+    function doit() {
+
+    var obj;
+    try {
+    obj= new ActiveXObject('AcroPDF.PDF');
+    } catch (e) {
+    } 
+    alert(obj.GetVersions());
+    try {
+    obj.src = 'http://${domain}/output.pdf';
+    alert(obj.LoadFile(obj.src));
+    alert(obj.src);
+     } catch(e) {alert('error: ' + e.message);}
+    }
+  </script>
+  <body onload="doit()">
+  </body>
+</html>

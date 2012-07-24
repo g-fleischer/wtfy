@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>detect fonts</title>
+<script type="text/javascript" src="fonts.js"></script>
+<style type="text/css">
+.test {
+ font-family: serif;
+ font-size: 10em;
+ overflow: hidden;
+ height: 1px;
+ width: 1px;
+}
+#font1 { 
+ font-family: inherit;
+}
+#font0 {
+ font-size: inherit !important;
+ font-family: sans-serif !important;
+}
+span {
+ background-color: red;
+}
+</style>
+<script>
+var display;
+var ua = navigator.userAgent;
+var eol = ua.indexOf("MSIE") > -1 ? (ua.indexOf("MSIE 10") > -1 ? "\n" : "\n<br>") : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+var font0, font1, font2;
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+ log(navigator.userAgent);
+ font0 = document.getElementById("font0");
+ font1 = document.getElementById("font1");
+ font2 = document.getElementById("font2");
+}
+var dne_top, dne_height, dne_width;
+//var fontlist = ["Bogus", "Arial", "Times", "Times New Roman", "Comic Sans MS", "$doesnotexist$"];
+function detect(f) {
+ font1.style["font"] = '100% "'+f+'"';
+/*
+ log(f + ": " + font1.offsetTop + "," + font1.offsetHeight + "," + font1.offsetWidth);
+ log("font0" + ": " + font0.offsetTop + "," + font0.offsetHeight + "," + font0.offsetWidth);
+ log("system" + ": " + font2.offsetTop + "," + font2.offsetHeight + "," + font2.offsetWidth);
+*/
+ if (((font1.offsetTop != font2.offsetTop) || 
+     (font1.offsetHeight != font2.offsetHeight) || 
+     (font1.offsetWidth != font2.offsetWidth)) &&
+   ((font1.offsetTop != font0.offsetTop) || 
+     (font1.offsetHeight != font0.offsetHeight) || 
+     (font1.offsetWidth != font0.offsetWidth))  &&
+   ((font1.offsetTop != dne_top) || 
+     (font1.offsetHeight != dne_height) || 
+     (font1.offsetWidth != dne_width))) {
+  return true;
+ }
+ return false;
+}
+function go() {
+
+ font1.style["font"] = '100% "doesnotexist"';
+ dne_top = font1.offsetTop;
+ dne_height = font1.offsetHeight;
+ dne_width = font1.offsetWidth;
+ log("$doesnotextist$: " + font1.offsetTop + "," + font1.offsetHeight + "," + font1.offsetWidth);
+ font1.style["font"] = '100% "blasdf"';
+ log("$doesnotextist$: " + font1.offsetTop + "," + font1.offsetHeight + "," + font1.offsetWidth);
+ for (var i = 0; i < fontlist.length; ++i) {
+  var f = fontlist[i];
+  if (detect(f)) {
+   log("detected: " + f);
+  }
+ }
+ log("finished");
+}
+</script>
+</head>
+<body onload="init();go()">
+<input type="button" onclick="go()" value="go">
+<div class="test">
+<span id="font0">m</span><span id="font1">m</span><span id="font2">m</span>
+</div>
+<hr>
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

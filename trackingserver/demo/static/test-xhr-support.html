@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>test xhr support</title>
+<script>
+var display;
+var eol = "\n<br>";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function go() {
+  var methods = [
+"GET",
+"POST",
+"PUT",
+"DELETE",
+"HEAD",
+"TRACE",
+"TRACK",
+"OPTIONS",
+"CONNECT",
+"PROPFIND",
+"PROPPATCH",
+"MKCOL",
+"COPY",
+"MOVE",
+"LOCK",
+"UNLOCK",
+"XXX",
+"DEBUG",
+];
+  for (var m in methods) {
+   var method = methods[m];
+   var xhr = new XMLHttpRequest();
+   try {
+     xhr.open(method, "/empty.html", false);
+//     xhr.send();
+     log("method ok: " + method);
+   } catch (e) {
+     log("method fail: " + method);
+   }
+ }
+ for (var i = 0; i < 0x7f; ++i) {
+  var c = String.fromCharCode(i);
+  if (!c.match(/[a-zA-Z0-9]/)) {
+   var xhr = new XMLHttpRequest();
+   try {
+    xhr.open(c, "/empty.html", false);
+    xhr.send();
+    log("method ok: " + c);
+   } catch (e) {}
+  }
+ }
+}
+</script>
+</head>
+<body onload="init()">
+<input type="button" onclick="go()" value="go">
+<hr>
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

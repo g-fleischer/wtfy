@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>template</title>
+<style type="text/css">
+a:after { content: "[" attr(href) "]";}
+a:visited { background-color: red; }
+a:link { background-color: blue; }
+span { 
+ background-color: inherit !important;
+}
+</style>
+<script>
+var display;
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + "\n";
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function report(target) {
+ var spanx = document.getElementById(target);
+ var style = getComputedStyle(spanx, null);
+ log(target + ": " + style.getPropertyValue("background-color"));
+}
+function go() {
+
+ report("span0");
+ report("span1");
+
+}
+</script>
+</head>
+<body onload="init();go();">
+<a id="google" href="http://www.google.com/"><span id="span0" /></a>
+<a id="google2" href="http://www.google2.com/"><span id="span1" /></a>
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

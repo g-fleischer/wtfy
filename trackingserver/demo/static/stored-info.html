@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>Stored Info</title>
+<script>
+var eol = 'undefined' != typeof(window['clipboardData']) ? "<br>\n" : "\n";
+var display;
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting from: " + document.location);
+}
+function go() {
+ log('cookies='+document.cookie);
+ log('storage='+localStorage['trackid']);
+}
+</script>
+</head>
+<body onload="init(); go();">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;width=90%"></div>
+</body>
+</html>

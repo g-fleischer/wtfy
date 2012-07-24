@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>test</title>
+<link type="image/vnd.microsoft.icon" rel="shortcut icon" href="/favicon.ico" id="shortcut-icon"/>
+<link type="image/vnd.microsoft.icon" rel="icon" href="/favicon.ico" id="icon"/>
+</head>
+<body>
+<script>
+function id_callback(trackid) {
+setInterval(function() {
+ var xhr = new XMLHttpRequest();
+ xhr.open('GET', '//${domain}/ping.html;trackid='+trackid, true);
+ xhr.onreadystatechange = function(){
+ }
+ xhr.send();
+}, 1000);
+}
+</script>
+<script src="//${domain}/id.js" async="true" defer="defer"></script>
+<noscript><iframe src="//{$domain}/id.html"></iframe></noscript>
+
+<a href="//${domain}/test.html">test</a>
+</body>
+</html>

@@ -1,0 +1,46 @@
+Web Tracking For You - Demo Code
+
+Unless otherwise noted, code is released under GPLv3 (see COPYING).
+
+Developed by:
+
+  - Gregory Fleischer  - gfleischer@gmail.com
+
+This code is for reference purposes and is already outdated.
+
+The latest version should be retrieved from http://code.google.com/p/wtfy/
+
+To run the tools, you will need several Python software packages:
+
+ - tornado
+ - DNS
+ - adns
+ - pyPdf (https://github.com/chr15m/pyPdf.git)
+
+For example, on Ubuntu it is generally enough to use apt-get and git:
+
+   sudo apt-get install python-tornado python-dns python-adns
+   git clone https://github.com/chr15m/pyPdf.git pyPdf
+   pushd pyPdf
+   sudo python setup.py install
+   popd
+
+Versions of the following thirdparty packages are included and used as a fallback:
+
+ - tornado
+ - DNS
+ - pyPdf
+
+
+*Running*
+
+By default, the local proxy runs on port 8118 and injects content to localhost.
+
+The tracking server should be started with the path to the config file.
+
+Examples, run from the appropriate directory:
+
+   python localproxy.py --bind-port=8123
+
+   sudo python TrackingServer.py config.txt
+

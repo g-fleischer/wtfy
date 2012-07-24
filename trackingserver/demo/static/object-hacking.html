@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>object hacking</title>
+<script>
+var buffer = "";
+var xxx0;
+function report(msg) {
+    buffer += msg + "\n";;
+}
+function doit() {
+    xxx0 = document.getElementById("xxx0");
+    buffer = "";
+    var obj = document.createElement("object");
+
+    for(var i in Components.interfaces){
+	var c = Components.interfaces[i];
+	try {
+	    obj.QueryInterface(c);
+ if ("getContentTypeForMIMEType" in obj) {
+ // nsIObjectLoadingContent
+ if ("nsIObjectLoadingContent" != i) {
+ alert(i);
+}
+break;
+}
+	} catch (e) {
+	}
+    }
+
+    var mimeTypes = [
+	{t:"application/pdf", d:"Portable Document Format"},
+	{t:"application/vnd.fdf", d:"Acrobat Forms Data Format"},
+	{t:"application/vnd.adobe.xfdf", d:"XML Version of Acrobat Forms Data Format"},
+	{t:"application/vnd.adobe.xdp+xml", d:"Acrobat XML Data Package"},
+	{t:"application/vnd.adobe.xfd+xml", d:"Adobe FormFlow99 Data File"},
+ { t: "application/x-silverlight", d:"Silverlight"},
+ { t: "application/x-silverlight-2", d:"Silverlight2"},
+	{t:"*", d:"All types"},
+	{t:"application/x-java-applet;version=1.2", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.3.1", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.1.2", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.2.1", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.5", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.4.2", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.3", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.1.1", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.1", d:"Embedded Java Applet"}, {t:"application/x-java-applet", d:"Embedded Java Applet"}, {t:"application/x-java-vm", d:"Embedded JVM"}, {t:"application/x-java-applet;version=1.1.3", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.4.1", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.6", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.4", d:"Embedded Java Applet"}, {t:"application/x-java-applet;version=1.2.2", d:"Embedded Java Applet"}, {t:"application/x-shockwave-flash", d:"Shockwave Flash"}, {t:"application/futuresplash", d:"FutureSplash Player"}, {t:"*", d:"All types"}, {t:"application/sdp", d:"SDP stream descriptor"}, {t:"application/x-sdp", d:"SDP stream descriptor"}, {t:"application/x-rtsp", d:"RTSP stream descriptor"}, {t:"video/quicktime", d:"QuickTime Movie"}, {t:"video/x-msvideo", d:"Video For Windows"}, {t:"video/msvideo", d:"Video For Windows"}, {t:"video/avi", d:"Video For Windows"}, {t:"video/flc", d:"AutoDesk Animator"}, {t:"audio/x-wav", d:"WAVE audio"}, {t:"audio/wav", d:"WAVE audio"}, {t:"audio/aiff", d:"AIFF audio"}, {t:"audio/x-aiff", d:"AIFF audio"}, {t:"audio/basic", d:"uLaw/AU audio"}, {t:"audio/mid", d:"MIDI"}, {t:"audio/x-midi", d:"MIDI"}, {t:"audio/midi", d:"MIDI"}, {t:"audio/vnd.qcelp", d:"QUALCOMM PureVoice audio"}, {t:"audio/x-gsm", d:"GSM audio"}, {t:"audio/AMR", d:"AMR audio"}, {t:"audio/aac", d:"AAC audio"}, {t:"audio/x-aac", d:"AAC audio"}, {t:"audio/x-caf", d:"CAF audio"}, {t:"audio/ac3", d:"AC3 audio"}, {t:"audio/x-ac3", d:"AC3 audio"}, {t:"audio/vnd.qcelp", d:"QUALCOMM PureVoice audio"}, {t:"video/x-mpeg", d:"MPEG media"}, {t:"video/mpeg", d:"MPEG media"}, {t:"audio/mpeg", d:"MPEG audio"}, {t:"audio/x-mpeg", d:"MPEG audio"}, {t:"video/3gpp", d:"3GPP media"}, {t:"audio/3gpp", d:"3GPP media"}, {t:"video/3gpp2", d:"3GPP2 media"}, {t:"audio/3gpp2", d:"3GPP2 media"}, {t:"video/sd-video", d:"SD video"}, {t:"application/x-mpeg", d:"AMC media"}, {t:"video/mp4", d:"MPEG-4 media"}, {t:"audio/mp4", d:"MPEG-4 media"}, {t:"audio/x-m4a", d:"AAC audio"}, {t:"audio/x-m4p", d:"AAC audio"}, {t:"audio/x-m4b", d:"AAC audio book"}, {t:"video/x-m4v", d:"Video"}, {t:"audio/mpeg", d:"MP3 audio"}, {t:"audio/x-mpeg", d:"MP3 audio"}, {t:"audio/mp3", d:"MP3 audio"}, {t:"audio/x-mp3", d:"MP3 audio"}, {t:"audio/mpeg3", d:"MP3 audio"}, {t:"audio/x-mpeg3", d:"MP3 audio"}, {t:"image/x-bmp", d:"BMP image"}, {t:"image/x-macpaint", d:"MacPaint image"}, {t:"image/pict", d:"PICT image"}, {t:"image/x-pict", d:"PICT image"}, {t:"image/png", d:"PNG image"}, {t:"image/x-png", d:"PNG image"}, {t:"image/x-quicktime", d:"QuickTime image"}, {t:"image/x-sgi", d:"SGI image"}, {t:"image/x-targa", d:"TGA image"}, {t:"image/tiff", d:"TIFF image"}, {t:"image/x-tiff", d:"TIFF image"}, {t:"image/jp2", d:"JPEG2000 image"}, {t:"image/jpeg2000", d:"JPEG2000 image"}, {t:"image/jpeg2000-image", d:"JPEG2000 image"}, {t:"image/x-jpeg2000-image", d:"JPEG2000 image"}, {t:"audio/x-pn-realaudio", d:"RealPlayer Metafile"}, {t:"audio/x-pn-realaudio-plugin", d:"RealMedia"}, {t:"application/x-java-applet;version=1.2", d:"Java applet"}, {t:"application/x-java-applet;version=1.3.1", d:"Java applet"}, {t:"application/x-java-applet;version=1.1.2", d:"Java applet"}, {t:"application/x-java-applet;jpi-version=1.6.0_20", d:"Java applet"}, {t:"application/x-java-applet;version=1.2.1", d:"Java applet"}, {t:"application/x-java-applet;version=1.4.2", d:"Java applet"}, {t:"application/x-java-applet;version=1.5", d:"Java applet"}, {t:"application/x-java-applet;version=1.3", d:"Java applet"}, {t:"application/x-java-applet;version=1.1.1", d:"Java applet"}, {t:"application/x-java-applet;version=1.1", d:"Java applet"}, {t:"application/x-java-applet", d:"Basic Java Applets"}, {t:"application/x-java-vm", d:"Java applet"}, {t:"application/x-java-applet;version=1.1.3", d:"Java applet"}, {t:"application/x-java-applet;version=1.6", d:"Java applet"}, {t:"application/vnd.emusic-emusic_list", d:"eMusic List File"}, {t:"application/photo", d:"iPhoto 700"}];
+
+    for (var i=0; i < mimeTypes.length; ++i) {
+	var m = mimeTypes[i];
+	var typ = obj.getContentTypeForMIMEType(m.t);
+	if (4 != typ) {
+	    report("type=" + typ + ";t=" + m.t + "; d=" + m.d);
+	}
+    }
+    xxx0.value = buffer;
+}
+</script>
+</head>
+<body>
+<input type="button" onclick="doit()" name="go" value="go">
+<br>
+<textarea id="xxx0" rows="20" cols="80"></textarea>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<html>
+<body onload="go()">
+<script>
+if (window.name) {
+ window.name='';
+ var ifr = document.createElement("iframe");
+ ifr.src = "http://${domain}/id.html";
+ document.body.appendChild(ifr);
+} else {
+ var c = Math.floor(Math.random()*9999999);
+ window.name = document.location.href+'?_='+c;
+ var w = window.open('http://${domain}/go-back.html?_='+c, '_self');
+}
+</script>
+</body>
+</html>
+
+

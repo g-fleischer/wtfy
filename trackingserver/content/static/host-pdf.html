@@ -1,0 +1,38 @@
+<html>
+<head>
+<script>
+var messageHandler = {
+	onMessage : function(obj){alert("onMessage: " + obj);},
+	onError : function(obj){alert("onError: " + obj);}
+  };
+
+function go() {
+ var target = "/Tracking.pdf?d=" + (new Date()).getTime();
+ var pdfHost = document.getElementById("pdfHost");
+ if (pdfHost) {
+  document.removeChild(pdfHost);
+ }
+ pdfHost = document.createElement("object");
+ pdfHost.id = pdfHost.name = "pdfHost";
+ pdfHost["messageHandler"] = messageHandler;
+ pdfHost["allowScriptAccess"] = true;
+ pdfHost["ENABLEJAVASCRIPT"] = true;
+ pdfHost["MAYSCRIPT"] = true;
+ pdfHost["data"] = target;
+ pdfHost.type = "application/pdf";
+ pdfHost.height = 100;
+ pdfHost.width = 100;
+ var p = document.createElement("param");
+ p["name"] = "src";
+ p["value"] = target;
+ pdfHost.appendChild(p);
+ document.body.appendChild(pdfHost);
+}
+</script>
+</head>
+<body onload="go()">
+
+<iframe id="results" name="results"></iframe>
+
+</body>
+</html>

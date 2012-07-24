@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>test remote css</title>
+<link type="text/css" rel="stylesheet" href="//${domain}/t.css" />
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function getStyle(elem, css){
+ if (window.getComputedStyle) {
+  return window.getComputedStyle(elem, null).getPropertyValue(css)
+ } else if (elem.currentStyle) {
+  return elem.currentStyle[css];
+ } else {
+  return elem.style[css];
+ }
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function go() {
+ var t_iframe = document.getElementById("t_iframe");
+ log('background-image: ' + getStyle(t_iframe, "background-image"));
+ log('content: ' + window.getComputedStyle(t_iframe, ":after").getPropertyValue("content"));
+}
+</script>
+</head>
+<body onload="init();go()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+<iframe src="about:blank" id="t_iframe"></iframe>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>test pdf</title>
+<script>
+function doit() {
+ var object0 = document.createElement("object");
+ object0.type = "application/octet-stream";
+ object0.data = "output.pdf";
+ document.body.appendChild(object0);
+}
+</script>
+</head>
+<body onload="doit()">
+</body>
+</html>

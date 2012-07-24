@@ -1,0 +1,14 @@
+domain=localhost
+external_ip=127.0.0.1
+
+dynamic_directory=demo/dynamic
+static_directory=demo/static
+
+dbtype=sqlite
+
+sqlite_dbfile=demo/test.db
+
+ssl_certfile=demo/server.pem
+ssl_keyfile=demo/privkey.pem
+
+

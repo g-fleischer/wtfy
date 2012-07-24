@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>template</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+</script>
+<style>
+@media min-width: 400px {
+body {
+ background-color: green;
+}
+}
+</style>
+</head>
+<body onload="init()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

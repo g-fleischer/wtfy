@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>test cors</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date().toGMTString()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting from: " + document.location);
+}
+function go() {
+ var trackid = window.name;
+ try {
+  var target = "//${domain}/ids.js";
+  log("sending request to: " + target);
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", target, false);
+  xhr.setRequestHeader("X-TrackID", trackid);
+  xhr.send(null);
+  var etag = xhr.getResponseHeader("ETag");
+  log("Read ETag header value: " + etag );
+  if (etag) {
+    trackid = etag.replace(/\"/g, '');//"
+    if (trackid) {
+      window.name = trackid;
+    }
+  }
+ } catch (e) {
+  log("XMLHttpRequest() - got error: " + e.message);
+ }
+}
+</script>
+</head>
+<body onload="init(); go();">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

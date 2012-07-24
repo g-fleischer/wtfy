@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Test Html5 Storage</title>
+<script>
+var display;
+var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + eol;
+}
+function init() {
+ display = document.getElementById("display");
+ log("starting");
+}
+function go() {
+ if ('undefined' != typeof(localStorage)) {
+  var trackid = get_tracking_id();
+  var found = localStorage['trackid'];
+  if (typeof(found)!='undefined' && null !=found) { 
+   log('found: ' + localStorage['trackid']);
+   if (found != trackid) {
+    log('mismatch: ' + found + ' != ' + trackid);
+    log('storing: ' + trackid);
+   } 
+  } else {
+   localStorage['trackid'] = trackid;
+   log('storing: ' + trackid);
+  }
+ }
+}
+</script>
+<script type="text/javascript" src="//${domain}ids.js"></script>
+</head>
+<body onload="init();go()">
+<div id="display" style="white-space: pre; font-family: courier new;font-size: smaller;"></div>
+</body>
+</html>

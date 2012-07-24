@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>infoz</title>
+<script>
+var div0;
+function dump() {
+ div0 = document.getElementById("div0");
+ display('navigator', navigator);
+// display_plugins('navigator', navigator.plugins);
+ display('screen', screen);
+ display('window.statusbar', window.statusbar);
+ display('window.crypto', window.crypto);
+}
+function display(name, obj) {
+try {
+ for (var n in obj) {
+   var v = obj[n];
+   var d = name + '.' + n;
+   log(d + '=' + v);
+   if (v && 'object' == typeof(v) && v.toString().indexOf('MimeType]') > 0) {
+     display_mimetype('\t' + d, v);
+   }
+  }
+} catch (e) { alert(e);}
+}
+function display_mimetype(name, obj) {
+ for (var n in obj) {
+   var v = obj[n];
+   var d = name + '.' + n;
+   log(d + '=' + v);
+ }
+}
+
+function display_plugins(name, obj) {
+ for (var n in obj) {
+   var v = obj[n];
+   var d = name + '.' + n;
+   log(d + '=' + v);
+   display('\t' + d, v);
+  }
+}
+function log(msg) {
+ div0.innerHTML += msg + '\n';
+}
+</script>
+</head>
+<body onload="dump()">
+OK!
+<div id="div0" style="white-space: pre; font-family: Courier New, monospace;">
+info
+
+</div>
+</body>
+</html>

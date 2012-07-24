@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>detect Firefox Addons</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<script type="text/javascript" src="addon_xpt_iids.js"></script>
+<script>
+
+var display;
+
+function log(message) {
+ display.innerHTML += (new Date()) + ": " + message + "\n";
+}
+
+function init() {
+ display = document.getElementById("display");
+ log("User agent reported as " + navigator.userAgent);
+ var found = false;
+ for (var i in addon_xpt_iids) {
+  var iid = '{' + i + '}';
+  var obj = Components.interfacesByID[iid];
+  if (obj) {
+   log('Found: [' + obj + '] (' + addon_xpt_iids[i] + ')');
+   found = true;
+  }
+ }
+ if (!found) {
+  log("no addons with custom XPCOM interfaces found");
+ }
+}
+
+</script>
+</head>
+<body onload="init()">
+<div id="display" style="white-space: pre; font-family: courier new"></div>
+</body>
+</html>
