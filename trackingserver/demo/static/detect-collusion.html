@@ -17,7 +17,8 @@ var chrome_baseurl = "chrome-extension://ganlifbpkcplnldliibcbegplfmcfigp/"
 var chrome_targets = ["content.js", "d3.js", "scripts/content.js", "scripts/vendor/d3.js"];
 
 function log(message) {
- display.innerHTML += (new Date().toGMTString()) + ": " + message + "\n";
+// display.innerHTML += (new Date().toGMTString()) + ": " + message + "\n";
+ display.innerHTML += message + "\n";
 }
 
 function init() {
@@ -75,13 +76,13 @@ function timeout() {
  loadjs();
 }
 function js_load(event) {
- log("js loaded");
+// log("js loaded");
  clearTimeout(timeout_index);
  match_count += 1
  loadjs();
 }
 function js_error(event) {
- log("js error");
+// log("js error");
  clearTimeout(timeout_index);
  loadjs();
 }
@@ -98,7 +99,7 @@ function report() {
 }
 </script>
 <body onload="init()">
-<div id="display" style="white-space: pre; font-size: smaller; font-family: courier new"></div>
+<div id="display" style="white-space: pre; font-size: x-large; font-family: courier new"></div>
 
 </body>
 </html>

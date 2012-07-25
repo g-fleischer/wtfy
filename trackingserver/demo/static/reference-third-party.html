@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reference Third Party Content</title>
+<link rel="stylesheet" type="text/css" href="http://tracker.third-party.example/id.css" />
+<script src="/ids.js" type="text/javascript"></script>
+<script src="http://tracker.third-party.example/ids.js" type="text/javascript"></script>
+</head>
+<body onload="init()">
+<iframe src="http://tracker.third-party.example/id.html" height="40" width="40"></iframe>
+<img src="http://tracker.third-party.example/id.png">
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="900" height="700" id="movie_name" align="middle">
+    <param name="movie" value="http://tracker.third-party.example/RemoteTracking.swf"/>
+    <!--[if !IE]>-->
+    <object type="application/x-shockwave-flash" data="RemoteTracking.swf" width="900" height="700">
+        <param name="movie" value="http://tracker.third-party.example/RemoteTracking.swf"/>
+    <!--<![endif]-->
+    <!--[if !IE]>-->
+    </object>
+    <!--<![endif]-->
+</object>
+</body>
+</html>

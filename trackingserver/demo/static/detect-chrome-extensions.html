@@ -5,7 +5,8 @@
 var display;
 var eol = navigator.userAgent.indexOf("MSIE") > -1 ? "\n<br>" : "\n";
 function log(message) {
- display.innerHTML += (new Date()) + ": " + message + eol;
+// display.innerHTML += (new Date().toUTCString()) + ":\n" + message + eol;
+ display.innerHTML += message + eol;
 }
 function init() {
  display = document.getElementById("display");

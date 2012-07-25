@@ -8,7 +8,7 @@ var original;
 var guard = (99999999999999999999 * Math.random()).toString();
 
 function log(message) {
- display.innerHTML += (new Date()) + ": " + message + "\n";
+display.innerHTML += (new Date()) + ":\n" + message + "\n";
 }
 
 function monitor() {
@@ -38,7 +38,7 @@ function stop() {
 </script>
 </head>
 <body onload="init();start()">
-<div id="display" style="white-space: pre; font-family: courier new"></div>
+<div id="display" style="white-space: pre; font-size: x-large; font-family: courier new"></div>
 <br>
 <input type="button" value="stop" onclick="stop()">
 <input type="button" value="start" onclick="start()">

@@ -57,6 +57,7 @@ from services.SilverlightPolicyService import SilverlightPolicyService
 from services.XmlSocketService import XmlSocketService
 from services.DnsService import DnsTcpServer, DnsUdpServer
 from services.FakeHttpsService import FakeHttpsService
+from services.FakeRtmpService import FakeRtmpService
 
 import tornado
 import tornado.httpserver
@@ -100,6 +101,9 @@ class TrackingServer():
         dns_udp_sockets = [
             self.framework.make_udp_server_socket(53),
             ]
+        fake_rtmp_sockets = [
+            self.framework.make_tcp_server_socket(1935),
+            ]
         fake_https_sockets = [
             self.framework.make_tcp_server_socket(8443),
             ]
@@ -139,6 +143,9 @@ class TrackingServer():
 
         fake_https_server = FakeHttpsService(self.framework)
         fake_https_server.add_sockets(fake_https_sockets)
+
+        fake_rtmp_server = FakeRtmpService(self.framework)
+        fake_rtmp_server.add_sockets(fake_rtmp_sockets)
 
         IOLoop.instance().start()
 
