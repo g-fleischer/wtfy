@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>Install Demo TPL</title>
+</head>
+<body>
+<script>
+function loadTPFile() {
+        var URL = "./demo.tpl";
+        var description = 'Demo Tracking Protection List';
+        window.external.msAddTrackingProtectionList(URL, description);
+    }
+</script>
+<input type="button" onclick="loadTPFile()" value="Install TPL">
+</body>
+</html>

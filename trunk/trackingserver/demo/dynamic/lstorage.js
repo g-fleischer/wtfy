@@ -32,7 +32,7 @@
 	i.heigth = i.width = 0;
 	i.frameBorder = 0;
 	i.top = i.left = "-1234px";
-	i.src = "//${domain}/lstorage.html";
+	i.src = "//${3rdparty}/lstorage.html";
 	d.body.appendChild(i);
     } catch(e) {alert(e)}
 })();

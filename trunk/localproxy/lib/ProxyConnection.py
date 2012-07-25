@@ -220,7 +220,7 @@ class ProxyConnection():
                 ok = True
             else:
                 if not self.quiet:
-                    sys.stderr.write('failed on connect [%s:%d]: %s\n' % (ip_address, port, e))
+                    sys.stderr.write('failed on connect [%s:%d]: %s\n' % (self.client_ip_address, self.client_port, e))
         if ok:
             self.client_state = self.S_CLIENT_CONNECTED
 

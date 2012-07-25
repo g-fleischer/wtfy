@@ -1,5 +1,6 @@
-domain=localhost
-external_ip=127.0.0.1
+domain=demohost.localdomain
+external_ip=172.16.255.1
+3rdparty=tracker.third-party.example
 
 dynamic_directory=demo/dynamic
 static_directory=demo/static

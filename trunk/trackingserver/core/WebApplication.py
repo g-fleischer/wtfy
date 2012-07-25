@@ -40,6 +40,7 @@ class WebApplication(object):
         self.DYNAMIC_DIRECTORY = self.framework.get_config('dynamic_directory')
         self.STATIC_DIRECTORY = self.framework.get_config('static_directory')
         self.EXTERNAL_DOMAIN = self.framework.get_config('domain')
+        self.THIRD_PARTY = self.framework.get_config('3rdparty')
         self.RE_REPLACEMENT = re.compile(r'\$\{(\w+)\s*\}')
 
     def get_content_type(self, filename):
@@ -73,6 +74,8 @@ class WebApplication(object):
             return trackid
         elif 'domain' == match.group(1).rstrip():
             return self.EXTERNAL_DOMAIN
+        elif '3rdparty' == match.group(1).rstrip():
+            return self.THIRD_PARTY
         else:
             return '<unknown>'
 
@@ -403,6 +406,9 @@ class WebApplication(object):
             self.send_response(context, 200, body, 'text/plain')
         elif path in ('/flash-results',):
             self.framework.process_results(context.client_address, context.body)
+            body = 'trackid=%s' % (context.trackid)
+            self.send_response(context, 200, body, 'text/plain')
+        elif path in ('/get-trackid',):
             body = 'trackid=%s' % (context.trackid)
             self.send_response(context, 200, body, 'text/plain')
         elif path in ('/pdf-results',):
